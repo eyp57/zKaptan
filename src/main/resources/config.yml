@@ -1,0 +1,36 @@
+messages:
+  error: '&cGeçersiz argüman'
+  worldError: '&cBu komutu kullanmak için spawn dünyasına gidiniz.'
+  permError: '&cBunun için yeterli yetkiniz bulunmuyor.'
+  titles:
+    searchingLocation:
+      title: '&czKaptan'
+      subtitle: '&7Uygun lokasyon bulunuyor.'
+    findedLocation:
+      title: '&cLokasyon bulundu'
+      subtitle: '&fX: &e%x% &fY: &e%y% &fZ: &e%z%'
+    lastLocation:
+      title: '&cKaldınız yerden devam ediliyor'
+      subtitle: '&fX: &e%x% &fY: &e%y% &fZ: &e%z%'
+
+settings:
+  randomTP:
+    max:
+      x: 500
+      z: 500
+  waitDelay: 10
+  usableWorld: 'world'
+
+KaptanGUI:
+  size: 36
+  title: '&aKaptan'
+  items:
+    1:
+      material: GRASS_BLOCK
+      displayName: '&aIstanbul'
+      slot: 13
+      lore:
+        - '&aBu dünyada şunu bunu yapabilirsin'
+        - '&aşunuda bunuda yapabilirsin.'
+      settings:
+        world: 'alanya'
