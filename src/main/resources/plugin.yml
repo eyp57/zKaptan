@@ -1,14 +1,7 @@
 name: Kaptan
 version: '${project.version}'
 main: tk.axyzl.kaptan.Kaptan
-api-version: 1.16
+api-version: 1.13
 authors: [ zRooter ]
 description: Discord zRooter#7295
-website: https://axyyzl.tk
-
-commands:
-  kaptan:
-    description: Ana Komut
-    aliases:
-      - kaptan
-      - zkaptan
+website: https://eyyuepguelen.xyz

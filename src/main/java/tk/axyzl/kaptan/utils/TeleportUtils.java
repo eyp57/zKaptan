@@ -2,6 +2,8 @@ package tk.axyzl.kaptan.utils;
 
 import java.util.HashSet;
 import java.util.Random;
+
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,27 +17,26 @@ public class TeleportUtils {
     public static HashSet<Material> forbiddenBlock = new HashSet<>();
 
     static {
-        forbiddenBlock.add(Material.FIRE);
-        forbiddenBlock.add(Material.LAVA);
-        forbiddenBlock.add(Material.CACTUS);
-        forbiddenBlock.add(Material.MAGMA_BLOCK);
-        forbiddenBlock.add(Material.WATER);
-        forbiddenBlock.add(Material.ICE);
-        forbiddenBlock.add(Material.PACKED_ICE);
-        forbiddenBlock.add(Material.BLUE_ICE);
-        forbiddenBlock.add(Material.ACACIA_LEAVES);
-        forbiddenBlock.add(Material.BIRCH_LEAVES);
-        forbiddenBlock.add(Material.DARK_OAK_LEAVES);
-        forbiddenBlock.add(Material.JUNGLE_LEAVES);
-        forbiddenBlock.add(Material.OAK_LEAVES);
-        forbiddenBlock.add(Material.SPRUCE_LEAVES);
-        forbiddenBlock.add(Material.GRAVEL);
-        forbiddenBlock.add(Material.SAND);
-        forbiddenBlock.add(Material.SEAGRASS);
-        forbiddenBlock.add(Material.TALL_SEAGRASS);
-        forbiddenBlock.add(Material.AIR);
+        forbiddenBlock.add(XMaterial.FIRE.parseMaterial());
+        forbiddenBlock.add(XMaterial.LAVA.parseMaterial());
+        forbiddenBlock.add(XMaterial.CACTUS.parseMaterial());
+        forbiddenBlock.add(XMaterial.MAGMA_BLOCK.parseMaterial());
+        forbiddenBlock.add(XMaterial.WATER.parseMaterial());
+        forbiddenBlock.add(XMaterial.ICE.parseMaterial());
+        forbiddenBlock.add(XMaterial.PACKED_ICE.parseMaterial());
+        forbiddenBlock.add(XMaterial.BLUE_ICE.parseMaterial());
+        forbiddenBlock.add(XMaterial.ACACIA_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.BIRCH_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.DARK_OAK_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.JUNGLE_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.OAK_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.SPRUCE_LEAVES.parseMaterial());
+        forbiddenBlock.add(XMaterial.GRAVEL.parseMaterial());
+        forbiddenBlock.add(XMaterial.SAND.parseMaterial());
+        forbiddenBlock.add(XMaterial.SEAGRASS.parseMaterial());
+        forbiddenBlock.add(XMaterial.TALL_SEAGRASS.parseMaterial());
+        forbiddenBlock.add(XMaterial.AIR.parseMaterial());
     }
-
     public static Location newLocation(String world, Player player) {
         Random random = new Random();
         if (Bukkit.getWorld(world) == null) {
@@ -45,8 +46,7 @@ public class TeleportUtils {
 
         Location loc =  Kaptan.data.getLocation(player.getUniqueId() + "." + world.toLowerCase() + ".lastLocation");
         if(loc != null) {
-            player.sendTitle(ChatColor.translateAlternateColorCodes('&',
-                    Kaptan.instance.getConfig().getString("messages.titles.lastLocation.title")
+            player.sendTitle(ChatColor.translateAlternateColorCodes('&', Kaptan.instance.getConfig().getString("messages.titles.lastLocation.title")
             ), ChatColor.translateAlternateColorCodes('&',
                     Kaptan.instance.getConfig().getString("messages.titles.lastLocation.subtitle")
                             .replaceAll("%x%", String.valueOf(loc.getX())))

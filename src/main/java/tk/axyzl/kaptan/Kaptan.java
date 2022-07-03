@@ -1,55 +1,38 @@
 package tk.axyzl.kaptan;
 
-import me.clip.placeholderapi.PlaceholderAPI;
+import com.hakan.core.HCore;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import tk.axyzl.kaptan.commands.KaptanCMD;
+import tk.axyzl.kaptan.commands.KaptanCommand;
 import tk.axyzl.kaptan.utils.Data;
-import tk.axyzl.kaptan.utils.TeleportUtils;
-import xyz.efekurbann.inventory.Hytem;
-import xyz.efekurbann.inventory.InventoryAPI;
-
-import java.util.List;
 
 public final class Kaptan extends JavaPlugin implements Listener {
 
     public static Kaptan instance;
-    public static InventoryAPI inventoryAPI;
     public static Data data;
 
     @Override
     public void onEnable() {
+        System.out.println("§ezKaptan eklentisi başlatılıyor...");
         instance = this;
-        inventoryAPI = new InventoryAPI(this);
         data = new Data(this);
         saveDefaultConfig();
-        System.out.println("§czKaptan başlatıldı.");
+        HCore.registerCommands(new KaptanCommand());
         getServer().getPluginManager().registerEvents(this, this);
-        getCommand("kaptan").setExecutor(new KaptanCMD());
+        System.out.println("§azKaptan eklentisi başlatıldı.");
     }
 
     @Override
     public void onDisable() {
 
-    }
-
-    @EventHandler
-    public void onDrag(InventoryDragEvent event) {
-        if(event.getView().getTitle().equals(Kaptan.instance.getConfig().getString("KaptanGUI.title"))) {
-            event.setCancelled(true);
-        }
     }
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
@@ -65,7 +48,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
         }
     }
     @EventHandler
-    public void onDied(PlayerRespawnEvent e) {
+    public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
         Location loc = data.getLocation(p.getUniqueId() + "." + p.getWorld().getName().toLowerCase() + ".firstLocation");
         if(loc != null) {
@@ -77,7 +60,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
                     p.teleport(loc);
                 }
             };
-            task.runTaskLater(this, 10 * 1);
+            task.runTaskLater(this, 10);
         }
     }
     @EventHandler
