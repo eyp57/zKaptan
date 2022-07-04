@@ -25,6 +25,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
         instance = this;
         data = new Data(this);
         saveDefaultConfig();
+        saveConfig();
         HCore.registerCommands(new KaptanCommand());
         getServer().getPluginManager().registerEvents(this, this);
         System.out.println("§azKaptan eklentisi başlatıldı.");
@@ -32,7 +33,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-
+        data.save();
     }
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
@@ -41,7 +42,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
             String worldName = e.getPlayer().getWorld().getName();
             if(configWorldName != null) {
                 if (configWorldName.equalsIgnoreCase(worldName)) {
-                    data.set(e.getPlayer().getUniqueId() + "." + e.getPlayer().getWorld().getName().toLowerCase() + ".lastLocation", e.getPlayer().getLocation());
+                    data.setLocation(e.getPlayer().getUniqueId() + "." + e.getPlayer().getWorld().getName().toLowerCase() + ".lastLocation", e.getPlayer().getLocation());
                     data.save();
                 }
             }
@@ -52,7 +53,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
         Player p = e.getPlayer();
         Location loc = data.getLocation(p.getUniqueId() + "." + p.getWorld().getName().toLowerCase() + ".firstLocation");
         if(loc != null) {
-            data.set(p.getUniqueId() + "." + p.getWorld().getName().toLowerCase() + ".lastLocation", loc);
+            data.setLocation(p.getUniqueId() + "." + p.getWorld().getName().toLowerCase() + ".lastLocation", loc);
             data.save();
             BukkitRunnable task = new BukkitRunnable() {
                 @Override
@@ -70,7 +71,7 @@ public final class Kaptan extends JavaPlugin implements Listener {
             String worldName = e.getFrom().getWorld().getName();
             if(configWorldName != null) {
                 if (configWorldName.equalsIgnoreCase(worldName)) {
-                    data.set(e.getPlayer().getUniqueId() + "." + worldName.toLowerCase() + ".lastLocation", e.getFrom());
+                    data.setLocation(e.getPlayer().getUniqueId() + "." + worldName.toLowerCase() + ".lastLocation", e.getFrom());
                     data.save();
                 }
             }

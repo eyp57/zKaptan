@@ -1,6 +1,7 @@
 package tk.axyzl.kaptan.guis;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.hakan.core.item.HItemBuilder;
 import com.hakan.core.ui.inventory.HInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.*;
@@ -24,19 +25,14 @@ public class KaptanGUI extends HInventory {
     protected void onOpen(@NotNull Player player) {
         for(String x : Kaptan.instance.getConfig().getConfigurationSection("KaptanGUI.items").getKeys(false)) {
             Material material = XMaterial.valueOf(Kaptan.instance.getConfig().getString("KaptanGUI.items." + x + ".material")).parseMaterial();
-            ItemStack itemStack = new ItemStack(material);
-            ItemMeta meta = itemStack.getItemMeta();
-
-            meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', Kaptan.instance.getConfig().getString("KaptanGUI.items." + x + ".displayName")));
             List<String> lore = Kaptan.instance.getConfig().getStringList("KaptanGUI.items." + x + ".lore");
-            lore.replaceAll(e -> ChatColor.translateAlternateColorCodes('&', e));
-            OfflinePlayer offlinePlayer = Bukkit.getServer().getOfflinePlayer("KAPTAN");
             if(Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-                meta.setLore(PlaceholderAPI.setPlaceholders(offlinePlayer, lore));
-            } else {
-                meta.setLore(lore);
+                lore = PlaceholderAPI.setPlaceholders(player, lore);
             }
-            super.setItem(Kaptan.instance.getConfig().getInt("KaptanGUI.items." + x + ".slot"), itemStack, event -> {
+            HItemBuilder itemBuilder = new HItemBuilder(material)
+                    .name(ChatColor.translateAlternateColorCodes('&', Kaptan.instance.getConfig().getString("KaptanGUI.items." + x + ".displayName")))
+                    .lores(true, lore);
+            super.setItem(Kaptan.instance.getConfig().getInt("KaptanGUI.items." + x + ".slot"), itemBuilder.build(), event -> {
                 World world = Bukkit.getServer().getWorld(Kaptan.instance.getConfig().getString("KaptanGUI.items." + x + ".settings.world"));
                 event.getWhoClicked().teleport(TeleportUtils.newLocation(world.getName(), (Player) event.getWhoClicked()));
             });

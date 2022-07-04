@@ -83,9 +83,9 @@ public class TeleportUtils {
             ));
 
 
-            Kaptan.data.set(player.getUniqueId() + "." + world.toLowerCase() + ".firstLocation", loc);
+            Kaptan.data.setLocation(player.getUniqueId() + "." + world.toLowerCase() + ".firstLocation", loc);
 
-            Kaptan.data.set(player.getUniqueId() + "." + world.toLowerCase() + ".lastLocation", loc);
+            Kaptan.data.setLocation(player.getUniqueId() + "." + world.toLowerCase() + ".lastLocation", loc);
             Kaptan.data.save();
         }
         return loc;

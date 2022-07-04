@@ -22,7 +22,7 @@ settings:
   usableWorld: 'world'
 
 KaptanGUI:
-  size: 36
+  rows: 3
   title: '&aKaptan'
   items:
     1:

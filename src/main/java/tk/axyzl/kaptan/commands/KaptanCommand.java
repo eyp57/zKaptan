@@ -27,7 +27,7 @@ public class KaptanCommand implements HCommandAdapter {
     )
     public void mainCommand(Player sender, String[] args) {
         if (sender.getWorld().getName().equalsIgnoreCase(Kaptan.instance.getConfig().getString("settings.usableWorld"))) {
-            HInventory gui = new KaptanGUI("0", "kaptanGui", Kaptan.instance.getConfig().getInt("KaptanGUI.size"), InventoryType.CHEST);
+            HInventory gui = new KaptanGUI("0", ChatColor.translateAlternateColorCodes('&', Kaptan.instance.getConfig().getString("KaptanGUI.title")), Kaptan.instance.getConfig().getInt("KaptanGUI.rows"), InventoryType.CHEST);
             gui.open(sender);
         } else {
             sender.sendMessage(ChatColor
@@ -45,6 +45,7 @@ public class KaptanCommand implements HCommandAdapter {
         Kaptan.instance.saveDefaultConfig();
         Kaptan.instance.reloadConfig();
         Kaptan.instance.saveConfig();
+        Kaptan.data.reload();
         sender.sendMessage("Reloaded.");
     }
 }
